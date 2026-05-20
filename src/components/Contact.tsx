@@ -97,6 +97,7 @@ export default function Contact() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           access_key: '82f03c19-bd15-4f8a-9e00-95c3f638c36b',
+          to_email: 'boszramek204@gmail.com',
           from_name: form.name,
           email: form.email,
           company: form.company,
