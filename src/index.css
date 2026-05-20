@@ -1,0 +1,169 @@
+/* ─── Reset ─── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  font-family: -apple-system, 'Inter', BlinkMacSystemFont, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  background: #fff;
+  color: #1d1d1f;
+}
+
+body { overflow-x: hidden; }
+
+::-webkit-scrollbar { width: 0; height: 0; }
+
+/* ─── Design tokens ─── */
+:root {
+  /* Navy brand palette */
+  --blue:       #002366;   /* deep navy primary */
+  --blue-mid:   #003B8E;   /* mid navy (hover, gradients) */
+  --blue-tint:  rgba(0,35,102,0.07);
+  --blue-border:rgba(0,35,102,0.18);
+
+  --green:     #1A9E3F;
+  --amber:     #FF9F0A;
+  --dark:      #1d1d1f;
+  --body:      #424245;
+  --secondary: #86868b;
+  --surface:   #F5F5F7;
+  --nav-h:     52px;
+  --shadow-card:
+    0 2px 8px rgba(0,0,0,0.04),
+    0 12px 40px rgba(0,0,0,0.08),
+    0 40px 100px rgba(0,0,0,0.10);
+
+  /* Glassmorphism */
+  --glass-bg:     rgba(255,255,255,0.55);
+  --glass-blur:   blur(18px);
+  --glass-border: rgba(255,255,255,0.25);
+}
+
+/* ─── Utility: pills ─── */
+.pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  border-radius: 20px; padding: 5px 14px;
+  font-size: 0.72rem; font-weight: 600;
+  letter-spacing: 0.06em; text-transform: uppercase;
+}
+.pill-blue  { background: var(--blue-tint);  border: 0.5px solid var(--blue-border); color: var(--blue); }
+.pill-green { background: rgba(26,158,63,0.08);  border: 0.5px solid rgba(26,158,63,0.2);  color: var(--green); }
+.pill-amber { background: rgba(201,100,0,0.08);  border: 0.5px solid rgba(201,100,0,0.2);  color: #8A4A00; }
+.pill-dot   { width: 5px; height: 5px; border-radius: 50%; background: currentColor; animation: dot-pulse 2s ease-in-out infinite; }
+
+@keyframes dot-pulse { 0%,100% { opacity: .6; } 50% { opacity: 1; } }
+
+/* ─── Utility: buttons ─── */
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--blue); color: #fff;
+  font-size: .9375rem; font-weight: 600; letter-spacing: -.015em;
+  padding: 14px 28px; border-radius: 50px; border: none; cursor: pointer;
+  box-shadow: 0 4px 20px rgba(0,35,102,.28);
+  transition: background .18s, transform .18s cubic-bezier(.34,1.8,.64,1), box-shadow .18s;
+}
+.btn-primary:hover  { background: var(--blue-mid); transform: scale(1.04); box-shadow: 0 6px 28px rgba(0,35,102,.36); }
+.btn-primary:active { transform: scale(.96); }
+
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(0,0,0,.06); color: var(--dark);
+  font-size: .9375rem; font-weight: 500; letter-spacing: -.01em;
+  padding: 14px 28px; border-radius: 50px;
+  border: 0.5px solid rgba(0,0,0,.10); cursor: pointer;
+  transition: background .18s, transform .18s cubic-bezier(.34,1.8,.64,1);
+}
+.btn-ghost:hover  { background: rgba(0,0,0,.09); transform: scale(1.03); }
+.btn-ghost:active { transform: scale(.97); }
+
+/* ─── Utility: form ─── */
+.f-input {
+  width: 100%; padding: 12px 16px; border-radius: 10px;
+  border: 0.5px solid rgba(0,0,0,.15); background: var(--surface);
+  font-size: .9375rem; font-family: inherit; color: var(--dark);
+  outline: none; transition: border-color .18s, background .18s;
+  letter-spacing: -.01em;
+}
+.f-input:focus { border-color: var(--blue); background: #fff; }
+.f-input::placeholder { color: var(--secondary); }
+
+.btn-submit {
+  width: 100%; padding: 14px; border-radius: 12px; border: none;
+  background: var(--dark); color: #fff;
+  font-size: .9375rem; font-weight: 600; cursor: pointer;
+  letter-spacing: -.02em;
+  transition: background .18s, transform .18s cubic-bezier(.34,1.8,.64,1);
+}
+.btn-submit:hover  { background: #333; transform: scale(1.02); }
+.btn-submit:active { transform: scale(.97); }
+
+/* ─── Utility: metrics / checks ─── */
+.metric { background: var(--surface); border-radius: 14px; padding: 16px 18px; }
+.metric-val { font-size: 1.6rem; font-weight: 800; letter-spacing: -.045em; margin-bottom: 2px; }
+.metric-lbl { font-size: .68rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--secondary); }
+
+.check-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.check-item { display: flex; align-items: flex-start; gap: 10px; font-size: .9rem; color: var(--body); line-height: 1.5; }
+.check-icon { width: 18px; height: 18px; flex-shrink: 0; margin-top: 1px; }
+
+/* ─── Utility: scarcity strip ─── */
+.scarcity {
+  background: #FFF8EC; border: 0.5px solid rgba(201,100,0,.2);
+  border-radius: 14px; padding: 14px 20px;
+  display: flex; align-items: center; gap: 12px;
+  font-size: .8125rem; font-weight: 600; color: #8A4A00;
+}
+
+/* ─── Float card (Glassmorphism) ─── */
+.float-card {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border-radius: 28px;
+  box-shadow: var(--shadow-card);
+  border: 0.5px solid var(--glass-border);
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ─── Y oscillation ─── */
+@keyframes yosc { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+.yosc-a { animation: yosc 5.5s ease-in-out infinite; }
+.yosc-b { animation: yosc 5.5s ease-in-out 1.4s infinite; }
+.yosc-c { animation: yosc 5.5s ease-in-out 2.8s infinite; }
+
+/* ─── Background grid ─── */
+.bg-grid {
+  position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  background-image:
+    linear-gradient(rgba(0,0,0,.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,.018) 1px, transparent 1px);
+  background-size: 52px 52px;
+}
+
+@media (max-width: 768px) {
+  .desk-only { display: none !important; }
+  .mob-only  { display: block !important; }
+
+  /* Mandate tier grid — single column on mobile */
+  .mandate-grid {
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+  }
+
+  /* Tier cards — compact for iPhone */
+  .mandate-card {
+    margin-top: 0 !important;
+    padding: 22px 18px !important;
+    border-radius: 18px !important;
+  }
+
+  /* Sections — reduce horizontal padding */
+  section {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+
+  /* Hero headline — fit on narrow screens */
+  .hero-headline {
+    font-size: clamp(3.2rem, 12vw, 5rem) !important;
+  }
+}
